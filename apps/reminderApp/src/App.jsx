@@ -7,26 +7,20 @@ function App() {
     const [count, setCount] = useState(0)
 
     const setLogin = async () => {
-        // const resp = await fetch("http://localhost/api/login", {
-        //     body: {
-        //         email: 'test@example.com',
-        //         password: 'password'
-        //     },
-        //     headers: {
-        //         "Content-Type": "application/x-www-form-urlencoded",
-        //         "Accept": "application/json"
-        //     },
-        //     method: 'post'
-        // })
 
         const response = await axios.post("http://localhost/api/login", {
             email: 'test@example.com',
             password: 'password'
         });
 
-        // const {data} = resp.json()
-        // console.log(data, resp)
-        console.log(response);
+        const user = await axios.get("http://localhost/api/user", {
+            headers: {
+                'Authorization': `Bearer ${response.data.access_token}`,
+                'test': 'thes'
+            },
+        });
+
+        console.log(response, user);
     }
 
     return (
