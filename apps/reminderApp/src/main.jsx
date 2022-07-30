@@ -1,10 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App'
-import './index.css'
+import ReminderApp from "./ReminderApp";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <ReminderApp />
   </React.StrictMode>
 )
+
+//todo: Modulos.
+// Auth: Login / Register / ForgotPassword / ResetPassword / Verificar Email
+// Reminder
+// Sub reminder task
+// Recodar tareas via email

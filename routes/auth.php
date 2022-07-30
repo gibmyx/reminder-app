@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\Auth\LogoutController;
 use App\Http\Controllers\Api\Auth\NewPasswordController;
 use App\Http\Controllers\Api\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Api\Auth\UserPostController;
+use App\Http\Controllers\Api\Auth\VerifiTokenController;
 use App\Http\Controllers\Api\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,13 +27,17 @@ Route::post('/reset-password', [NewPasswordController::class, 'store'])
                 ->name('password.update');
 
 Route::get('/verify-email/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
-                ->middleware(['auth', 'signed', 'throttle:6,1'])
+                ->middleware(['auth:api', 'signed', 'throttle:6,1'])
                 ->name('verification.verify');
 
 Route::post('/email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
-                ->middleware(['auth', 'throttle:6,1'])
+                ->middleware(['auth:api', 'throttle:6,1'])
                 ->name('verification.send');
 
+Route::get('/verify-token', VerifiTokenController::class)
+    ->middleware('auth:api')
+    ->name('login');
+
 Route::post('/logout', LogoutController::class)
-                ->middleware('auth')
+                ->middleware('auth:api')
                 ->name('logout');
